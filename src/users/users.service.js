@@ -11,7 +11,6 @@ module.exports = {
             [data.userEmail],
             (error, results, fields)=>{
                 if(error){
-                    console.log(error)
                     return callBack(error)
                 }
                 if(results.length == 0){

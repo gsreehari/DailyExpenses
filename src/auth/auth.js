@@ -16,7 +16,6 @@ module.exports = {
             });
         }
 
-        console.log(body.userEmail,body.userPassword)
         getUserByEmail(body, true, (err,result)=>{
             if(err){
                 return err !== "NF" ? res.status(500).json({
@@ -25,7 +24,7 @@ module.exports = {
                     error:err,
                     message: "error"
                 })
-                : res.json({
+                : res.status(404).json({
                     status: "fail",
                     code: "RNF",
                     message: "Username or Password incorrect"
