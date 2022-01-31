@@ -8,7 +8,7 @@ const {
 
 module.exports = {
     login:(req,res)=>{
-        const body = JSON.parse(req.body)
+        const body = req.body
         if(body.userEmail == undefined || body.userEmail == "" || body.userPassword == undefined || body.userPassword == ""){
             return res.status(400).json({
                 status:"fail",
