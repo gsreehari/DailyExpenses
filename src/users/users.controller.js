@@ -36,7 +36,7 @@ module.exports = {
                 message: "Email required"
             });
         }
-        getUserByEmail({userEmail},(err,results)=>{
+        getUserByEmail({userEmail}, false, (err,results)=>{
 
             if (err === "NF") {
                 return res.status(500).json({

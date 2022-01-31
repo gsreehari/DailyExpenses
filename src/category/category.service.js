@@ -10,12 +10,27 @@ module.exports = {
                 }
                 let expenseCategoryArray = []
                 let incomeCategoryArray = []
+                let eotherElement = {}
+                let iotherElement = {}
                 results.forEach(element => {
-                    element.categoryType == 1 ? expenseCategoryArray.push(element) : incomeCategoryArray.push(element)
+                    if(element.categoryName == "other" && element.categoryType == 1){
+                        eotherElement = element
+                    }else if(element.categoryName == "other" && element.categoryType == 0){
+                        iotherElement = element
+                        // continue
+                    }else{
+
+                        element.categoryType == 1 ? expenseCategoryArray.push(element) : incomeCategoryArray.push(element)
+                    }
                 });
+                incomeCategoryArray = incomeCategoryArray.sort((a, b) => a.categoryName.localeCompare(b.categoryName))
+                expenseCategoryArray = expenseCategoryArray.sort((a, b) => a.categoryName.localeCompare(b.categoryName))
+
+                incomeCategoryArray[incomeCategoryArray.length] = iotherElement
+                expenseCategoryArray[expenseCategoryArray.length] = eotherElement
                 results = {
-                    incomeCategory:incomeCategoryArray.sort((a, b) => a.categoryName.localeCompare(b.categoryName)),
-                    expenseCategory:expenseCategoryArray.sort((a, b) => a.categoryName.localeCompare(b.categoryName))
+                    incomeCategory:incomeCategoryArray,
+                    expenseCategory:expenseCategoryArray
                 }
                 return callBack(null,results)
             }
@@ -34,10 +49,12 @@ module.exports = {
         )
     },
     insertCategory:(data,callBack)=>{
-        const {categoryType,categoryName} = data
         pool.query(
-            'INSERT INTO tblExpenseCategory (categoryType,categoryName)',
-            [categoryType,categoryName],
+            'INSERT INTO tblExpenseCategory (categoryType,categoryName) values(?,?)',
+            [
+                data.categoryType,
+                data.categoryName
+            ],
             (error, results, fields)=>{
                 if(error){
                     return callBack(error)

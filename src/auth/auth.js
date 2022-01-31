@@ -1,4 +1,5 @@
 const jwt = require('../jwt/jwt')
+const { hashSync, genSaltSync } = require("bcrypt")
 const { compareSync } = require("bcrypt");
 
 const {
@@ -7,14 +8,14 @@ const {
 
 module.exports = {
     login:(req,res)=>{
-        let body = req.body
+        const body = req.body
         if(body.userEmail == undefined || body.userEmail == "" || body.userPassword == undefined || body.userPassword == ""){
             return res.status(400).json({
                 status:"fail",
                 message: "Email and password required"
             });
         }
-        getUserByEmail(body,(err,result)=>{
+        getUserByEmail(body, true, (err,result)=>{
             if(err){
                 return err !== "NF" ? res.status(500).json({
                     status:"fail",
@@ -28,6 +29,7 @@ module.exports = {
                     message: "Username or Password incorrect"
                 });
             }
+            
             const passresult = compareSync(body.userPassword, result.userPassword);
             if (passresult) {
                 result.userPassword = undefined;

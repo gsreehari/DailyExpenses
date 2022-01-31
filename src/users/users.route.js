@@ -10,6 +10,6 @@ const {
 
 router.get("/user/:email",validateToken, getUserByEmail);
 router.get("/getAllUsers",validateToken, getAllUsers);
-router.post("/addUser", validateToken, insertUser);
+router.post("/addUser", insertUser);
 
 module.exports = router

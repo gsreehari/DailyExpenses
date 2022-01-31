@@ -8,6 +8,6 @@ const {
 
 router.get("/getAllCategory",validateToken, getAllCategory);
 router.get("/getCategoryById/:categoryId",validateToken, getCategoryById);
-router.post("/insertCategory",validateToken, insertCategory);
+router.post("/addCategory",validateToken, insertCategory);
 
 module.exports = router

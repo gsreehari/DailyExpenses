@@ -38,6 +38,9 @@ module.exports = {
             })
         }
         insertCategory(body,(error,results)=>{
+            if(error){
+                return res.status(400).send(error);
+            }
             return res.status(200).json({
                 status:"success",
                 data: results
