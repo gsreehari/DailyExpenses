@@ -15,6 +15,8 @@ module.exports = {
                 message: "Email and password required"
             });
         }
+
+        console.log(body.userEmail,body.userPassword)
         getUserByEmail(body, true, (err,result)=>{
             if(err){
                 return err !== "NF" ? res.status(500).json({

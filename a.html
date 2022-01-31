@@ -10,48 +10,19 @@
 
 <body>
 
+    <input type="text" name="" id="email">
+    <input type="submit" onclick="validate()">
+
     <script>
-        let students = [
-            {
-                name: 'John',
-                batch: 'Batch 11',
-                marks: {
-                    english: '38',
-                    maths: '72',
-                    science: '82',
-                    hindi: '21',
-                    social: '48',
-                }
-            },
-            {
-                name: 'Sita',
-                batch: 'Batch 12',
-                marks: {
-                    english: '74',
-                    maths: '82',
-                    science: '32',
-                    hindi: '42',
-                    social: '28',
-                }
-            },
-            {
-                name: 'Shyam',
-                batch: 'Batch 13',
-                marks: {
-                    english: '28',
-                    hindi: '81',
-                }
+        function validate(){
+            var email = document.getElementById("email").value
+            if(email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)){
+                alert("Valid email")
+            }else{
+                alert("Invalid email")
             }
-        ]
 
-        let list = students.map(student => {
-            let { english, maths, science, hindi, social } = student.marks
-            return parseInt(english??"0") + parseInt(maths??"0") + parseInt(science??"0") + parseInt(hindi??"0") + parseInt(social??"0")
-        })
-
-        console.log(list)
-
-
+        }
     </script>
 
 </body>
